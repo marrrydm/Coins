@@ -58,6 +58,11 @@ class CoinsViewModel {
     }
 
     func loadNextPage(completion: @escaping (Result<Void, Error>) -> Void) {
+        guard !isSearching else {
+            completion(.success(()))
+            return
+        }
+        
         CoinsContent.shared.getCurrencies { [weak self] result in
             guard let self = self else { return }
             DispatchQueue.global().async {
@@ -75,13 +80,18 @@ class CoinsViewModel {
     }
 
     func filterCoins() {
-        if searchText.isEmpty {
+        guard !searchText.isEmpty else {
             filteredCoins = []
-        } else {
-            filteredCoins = coins.filter { coin in
-                return coin.name.lowercased().contains(searchText.lowercased()) ||
-                coin.symbol.lowercased().contains(searchText.lowercased())
-            }
+            return
+        }
+
+        let lowercaseSearchText = searchText.lowercased()
+
+        filteredCoins = coins.filter { coin in
+            let lowercaseName = coin.name.lowercased()
+            let lowercaseSymbol = coin.symbol.lowercased()
+
+            return lowercaseName.contains(lowercaseSearchText) || lowercaseSymbol.contains(lowercaseSearchText)
         }
     }
 }

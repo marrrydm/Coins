@@ -20,7 +20,7 @@ class CoinsCell: UICollectionViewCell {
 
     private let nameTitle: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 16, weight: .regular)
+        view.font = UIFont(name: "SFProText-Regular", size: 16)
         view.textColor = .white
 
         return view
@@ -28,7 +28,7 @@ class CoinsCell: UICollectionViewCell {
 
     private let symbolTitle: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 14, weight: .regular)
+        view.font = UIFont(name: "SFProText-Regular", size: 14)
         view.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
 
         return view
@@ -36,7 +36,7 @@ class CoinsCell: UICollectionViewCell {
 
     private let priceUsdTitle: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 16, weight: .regular)
+        view.font = UIFont(name: "SFProText-Regular", size: 16)
         view.textColor = .white
 
         return view
@@ -44,7 +44,7 @@ class CoinsCell: UICollectionViewCell {
 
     private let changePercent24HrTitle: UILabel = {
         let view = UILabel()
-        view.font = .systemFont(ofSize: 14, weight: .regular)
+        view.font = UIFont(name: "SFProText-Regular", size: 14)
         view.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
 
         return view

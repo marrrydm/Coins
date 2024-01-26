@@ -13,7 +13,7 @@ final class CoinsController: UIViewController {
         let view = UILabel()
         view.text = "coins.title".localize()
         view.textColor = .white
-        view.font = .systemFont(ofSize: 24, weight: .semibold)
+        view.font = UIFont(name: "SF Pro Text Semibold", size: 24)
         return view
     }()
 
@@ -41,6 +41,7 @@ final class CoinsController: UIViewController {
         searchController.searchBar.placeholder = "Search"
         searchController.searchResultsUpdater = self
         searchController.searchBar.delegate = self
+        searchController.searchBar.keyboardAppearance = .light
 
         if #available(iOS 13.0, *) {
             let searchTextField = searchController.searchBar.searchTextField
@@ -82,6 +83,13 @@ final class CoinsController: UIViewController {
         collectionView.reloadData()
     }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        viewModel.searchText = ""
+        viewModel.filterCoins()
+        searchController.searchBar.text = ""
+    }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         collectionView.delegate = self
@@ -97,8 +105,10 @@ final class CoinsController: UIViewController {
         viewModel.filterCoins()
         collectionView.reloadData()
     }
+}
 
-    private func setupViews() {
+private extension CoinsController {
+    func setupViews() {
         backgroundImageView.translatesAutoresizingMaskIntoConstraints = false
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         collectionView.translatesAutoresizingMaskIntoConstraints = false
@@ -204,7 +214,7 @@ extension CoinsController: UICollectionViewDelegate, UICollectionViewDataSource,
     }
 
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        let lastElement = viewModel.numberOfCoins - 1
+        let lastElement = viewModel.numberOfCoins - 4
         if indexPath.row == lastElement {
             loadNextPage()
         }
@@ -218,7 +228,8 @@ extension CoinsController: UICollectionViewDelegate, UICollectionViewDataSource,
         guard let coin = viewModel.coin(at: indexPath.row) else { return }
 
         let vc = DetailsController()
-        
+        vc.modalPresentationStyle = .fullScreen
+
         self.delegate = vc
         delegate?.didSelectCoin(
             name: coin.name,
@@ -229,17 +240,16 @@ extension CoinsController: UICollectionViewDelegate, UICollectionViewDataSource,
             supply: coin.maxSupply ?? "1.0",
             vol: coin.volumeUsd24Hr
         )
-        vc.modalPresentationStyle = .fullScreen
 
-        if searchController.isActive {
-            viewModel.searchText = ""
-            viewModel.filterCoins()
+        let animated = !searchController.isActive
+
+        searchController.dismiss(animated: false) { [self] in
+            DispatchQueue.main.async { [self] in
+                self.present(vc, animated: animated)
+            }
             searchButton.alpha = 1
             titleLabel.alpha = 1
-            searchController.dismiss(animated: false, completion: nil)
         }
-
-        present(vc, animated: false)
     }
 }
 
@@ -258,6 +268,11 @@ extension CoinsController: UISearchResultsUpdating, UISearchBarDelegate {
     func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
         searchButton.alpha = 0
         titleLabel.alpha = 0
+    }
+
+    func didDismissSearchController(_ searchController: UISearchController) {
+        searchButton.alpha = 1
+        titleLabel.alpha = 1
     }
 
     func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {

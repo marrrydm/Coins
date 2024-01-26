@@ -18,7 +18,7 @@ class DetailsController: UIViewController {
     private let titleLabel: UILabel = {
         let view = UILabel()
         view.textColor = .white
-        view.font = .systemFont(ofSize: 24, weight: .semibold)
+        view.font = UIFont(name: "SF Pro Text Semibold", size: 24)
 
         return view
     }()
@@ -26,7 +26,7 @@ class DetailsController: UIViewController {
     private let priceLabel: UILabel = {
         let view = UILabel()
         view.textColor = .white
-        view.font = .systemFont(ofSize: 24, weight: .regular)
+        view.font = UIFont(name: "SFProText-Regular", size: 24)
 
         return view
     }()
@@ -34,7 +34,7 @@ class DetailsController: UIViewController {
     private let hourLabel: UILabel = {
         let view = UILabel()
         view.textColor = .white
-        view.font = .systemFont(ofSize: 14, weight: .regular)
+        view.font = UIFont(name: "SFProText-Regular", size: 14)
 
         return view
     }()
@@ -83,7 +83,7 @@ class DetailsController: UIViewController {
         let view = UILabel()
         view.text = "title1".localize()
         view.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
-        view.font = .systemFont(ofSize: 12, weight: .regular)
+        view.font = UIFont(name: "SFProText-Regular", size: 12)
         view.textAlignment = .left
 
         return view
@@ -93,7 +93,7 @@ class DetailsController: UIViewController {
         let view = UILabel()
         view.text = "title2".localize()
         view.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
-        view.font = .systemFont(ofSize: 12, weight: .regular)
+        view.font = UIFont(name: "SFProText-Regular", size: 12)
         view.textAlignment = .center
 
         return view
@@ -103,7 +103,7 @@ class DetailsController: UIViewController {
         let view = UILabel()
         view.text = "title3".localize()
         view.textColor = UIColor(red: 1, green: 1, blue: 1, alpha: 0.5)
-        view.font = .systemFont(ofSize: 12, weight: .regular)
+        view.font = UIFont(name: "SFProText-Regular", size: 12)
         view.textAlignment = .right
 
         return view
@@ -112,7 +112,7 @@ class DetailsController: UIViewController {
     private let valMarketLabel: UILabel = {
         let view = UILabel()
         view.textColor = .white
-        view.font = .systemFont(ofSize: 16, weight: .regular)
+        view.font = UIFont(name: "SFProText-Regular", size: 16)
         view.textAlignment = .left
 
         return view
@@ -121,7 +121,7 @@ class DetailsController: UIViewController {
     private let valSupplyLabel: UILabel = {
         let view = UILabel()
         view.textColor = .white
-        view.font = .systemFont(ofSize: 16, weight: .regular)
+        view.font = UIFont(name: "SFProText-Regular", size: 16)
         view.textAlignment = .center
 
         return view
@@ -130,7 +130,7 @@ class DetailsController: UIViewController {
     private let valVolLabel: UILabel = {
         let view = UILabel()
         view.textColor = .white
-        view.font = .systemFont(ofSize: 16, weight: .regular)
+        view.font = UIFont(name: "SFProText-Regular", size: 16)
         view.textAlignment = .left
 
         return view
@@ -187,9 +187,8 @@ class DetailsController: UIViewController {
             hourLabel.leadingAnchor.constraint(equalTo: priceLabel.trailingAnchor, constant: 10),
 
             stackView.topAnchor.constraint(equalTo: priceLabel.bottomAnchor, constant: 12),
-            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 20),
-            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -20),
-            stackView.heightAnchor.constraint(equalToConstant: 60),
+            stackView.leadingAnchor.constraint(equalTo: view.leadingAnchor, constant: 10),
+            stackView.trailingAnchor.constraint(equalTo: view.trailingAnchor, constant: -10),
 
             valMarketLabel.topAnchor.constraint(equalTo: titleMarketLabel.bottomAnchor, constant: 2),
             valMarketLabel.centerXAnchor.constraint(equalTo: titleMarketLabel.centerXAnchor),
